@@ -24,7 +24,7 @@ h2 {
     text-shadow: 3px 4px 7px rgba(81,67,21,0.8);
 }
 input{
-    display: block;
+    display: inline-block;
     margin: auto;
     padding: 10px;
     border-radius: 5px;
@@ -32,8 +32,12 @@ input{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+button#copy-btn {
+    padding: 8px;
+    width: 57px;
+}
 
-button {
+.btn {
     background: white;
     padding: 15px 84px;
     color: black;
@@ -49,5 +53,49 @@ button:hover{
     border-color: #0c67f0;
     color:black;
     background-color: bisque;
+    
+}
+
+.toast-message{
+    position: fixed;
+    z-index: 999;
+    top: 2rem;
+    right: 2rem;
+    background: green;
+    color: black;
+    border: 1px solid white;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.toast-message-slide-in{
+    animation: toast-animation-in 0.5s ease-in;
+
+}
+.toast-message-slide-out{
+    animation: toast-animation-out 0.5s ease-in;
+    
+}
+@keyframes toast-animation-in {
+    from{
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    
+}
+@keyframes toast-animation-out {
+    from{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    to{
+        transform: translateX(200px);
+        opacity: 0;
+    }
     
 }
