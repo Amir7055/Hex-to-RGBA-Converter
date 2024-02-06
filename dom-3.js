@@ -21,16 +21,30 @@ function main(){
         inputColector.value=bgcolorhext;
     })
     copyPart.addEventListener("click",function(){
-       window.navigator.clipboard.writeText(inputColector.value)
+       window.navigator.clipboard.writeText(inputColector.value) 
         if(copyDive!==null){
             copyDive.remove()
             copyDive=null;
-        }
 
-       gettoastmessege(`${inputColector.value} is copied`);
+        }
+        if(validHexacode(inputColector.value)){
+            gettoastmessege(`${inputColector.value} is copied`);
+        }else{
+            alert("Its not a valid color code")
+        }
+       
+
+    })
+
+    inputColector.addEventListener("keyup",function(e){
+        const color = e.target.value;
+        if(color && validHexacode(color)){
+            containerPart.style.backgroundColor=color;
+        } 
     })
  
 }
+    
 
 
 
@@ -57,6 +71,20 @@ const gettoastmessege=(masg)=>{
         })
     })
     document.body.appendChild(copyDive)
+
+}
+
+/**
+ * 
+ * @param {string} color 
+ */
+
+function validHexacode(color){
+
+    if(color.length!==7) return false;
+    if(color[0]!=='#') return false;
+    color =color.substring(1);
+    return /^[0-9A-Fa-f]{6}$/i.test(color);
 
 }
 
