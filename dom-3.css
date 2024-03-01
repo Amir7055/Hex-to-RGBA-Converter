@@ -47,11 +47,17 @@ input{
     background-color: white;
     margin-top: 10px;
     margin-bottom: 10px;
+    
+}
+input#output {
+    margin-left: 40px;
+    border: none;
 }
 
 .inputpart:focus{
     outline: none;
     border: none;
+    
 
 }
 button#copy-btn {

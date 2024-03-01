@@ -18,7 +18,7 @@ function main(){
     changePart.addEventListener("click",()=>{
         bgcolorhext=randomhexColor()
         containerPart.style.backgroundColor=bgcolorhext;
-        inputColector.value=bgcolorhext;
+        inputColector.value=bgcolorhext.substring(1);
     })
     copyPart.addEventListener("click",function(){
        window.navigator.clipboard.writeText(inputColector.value) 
@@ -28,7 +28,7 @@ function main(){
 
         }
         if(validHexacode(inputColector.value)){
-            gettoastmessege(`${inputColector.value} is copied`);
+            gettoastmessege(`#${inputColector.value} is copied`);
         }else{
             alert("Its not a valid color code")
         }
@@ -38,8 +38,11 @@ function main(){
 
     inputColector.addEventListener("keyup",function(e){
         const color = e.target.value;
+        if(color){
+            inputColector.value=color.toUpperCase()
+        }
         if(color && validHexacode(color)){
-            containerPart.style.backgroundColor=color;
+            containerPart.style.backgroundColor=`#${color}`;
         } 
     })
  
@@ -64,7 +67,7 @@ const gettoastmessege=(masg)=>{
 
     copyDive.addEventListener('click',function(){
         copyDive.classList.remove("toast-message-slide-in");
-        copyDive.classList.add("toast-message-slide-out")
+        copyDive.classList.add("toast-message-slide-out");
         copyDive.addEventListener("animationend",function(){
             copyDive.remove()
             copyDive=null;
@@ -81,9 +84,7 @@ const gettoastmessege=(masg)=>{
 
 function validHexacode(color){
 
-    if(color.length!==7) return false;
-    if(color[0]!=='#') return false;
-    color =color.substring(1);
+    if(color.length!==6) return false;
     return /^[0-9A-Fa-f]{6}$/i.test(color);
 
 }
