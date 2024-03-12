@@ -12,16 +12,21 @@ window.onload=()=>{
 function main(){
     const containerPart = document.querySelector("#container");
     const inputColector = document.querySelector("#output");
+    const inputColectorRgb = document.querySelector("#output-2");
     const changePart = document.querySelector(".btn");
     const copyPart = document.querySelector(".copy-btn");
 
     changePart.addEventListener("click",()=>{
-        bgcolorhext=randomhexColor()
-        containerPart.style.backgroundColor=bgcolorhext;
-        inputColector.value=bgcolorhext.substring(1);
+        bgcolorhext=randomhexColor();
+        const hex=genaratehexcodemaintainer(bgcolorhext);
+        const rgbColor=genarateRGBcolor(bgcolorhext);
+
+        containerPart.style.backgroundColor=hex;
+        inputColector.value=hex.substring(1);
+        inputColectorRgb.value=rgbColor
     })
     copyPart.addEventListener("click",function(){
-       window.navigator.clipboard.writeText(inputColector.value) 
+       window.navigator.clipboard.writeText(`#${inputColector.value}`) 
         if(copyDive!==null){
             copyDive.remove()
             copyDive=null;
@@ -32,7 +37,7 @@ function main(){
         }else{
             alert("Its not a valid color code")
         }
-       
+
 
     })
 
@@ -45,7 +50,7 @@ function main(){
             containerPart.style.backgroundColor=`#${color}`;
         } 
     })
- 
+
 }
     
 
@@ -57,7 +62,26 @@ function randomhexColor(){
     let red= Math.floor(Math.random()*255);
     let green= Math.floor(Math.random()*255);
     let blue= Math.floor(Math.random()*255);
-    return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`
+    return{
+        red, 
+        green, 
+         blue
+        }
+   
+}
+
+//step -3 hexa code maintain function
+function genaratehexcodemaintainer({red,green,blue}){
+    function twocodegenerator (value){
+        const hexcode=value.toString(16);
+        return hexcode.length===1?`0${hexcode}`:hexcode;
+    }
+    return `#${twocodegenerator(red)}${twocodegenerator(green)}${twocodegenerator(blue)}`.toUpperCase();
+}
+
+function genarateRGBcolor({red,green,blue}){
+    return `rgb(${red},${green},${blue})`
+
 }
 
 const gettoastmessege=(masg)=>{
