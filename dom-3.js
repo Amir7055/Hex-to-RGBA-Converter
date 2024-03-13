@@ -15,6 +15,7 @@ function main(){
     const inputColectorRgb = document.querySelector("#output-2");
     const changePart = document.querySelector(".btn");
     const copyPart = document.querySelector(".copy-btn");
+    const copyPartTwo = document.querySelector(".copy-btn-2");
 
     changePart.addEventListener("click",()=>{
         bgcolorhext=randomhexColor();
@@ -34,6 +35,7 @@ function main(){
         }
         if(validHexacode(inputColector.value)){
             gettoastmessege(`#${inputColector.value} is copied`);
+            
         }else{
             alert("Its not a valid color code")
         }
@@ -41,13 +43,33 @@ function main(){
 
     })
 
+    //rgb copy part
+    copyPartTwo.addEventListener("click",function(){
+        window.navigator.clipboard.writeText(`${inputColectorRgb.value}`) 
+         if(copyDive!==null){
+             copyDive.remove()
+             copyDive=null;
+ 
+         }
+         if(validHexacode(inputColector.value)){
+             gettoastmessege(`${inputColectorRgb.value} is copied`);
+             
+         }else{
+             alert("Its not a valid color code")
+         }
+ 
+ 
+     })
+
     inputColector.addEventListener("keyup",function(e){
         const color = e.target.value;
         if(color){
             inputColector.value=color.toUpperCase()
+            inputColectorRgb.value=hexaTOrgb(color);
         }
         if(color && validHexacode(color)){
             containerPart.style.backgroundColor=`#${color}`;
+            
         } 
     })
 
@@ -79,11 +101,26 @@ function genaratehexcodemaintainer({red,green,blue}){
     return `#${twocodegenerator(red)}${twocodegenerator(green)}${twocodegenerator(blue)}`.toUpperCase();
 }
 
+// rgb color code
 function genarateRGBcolor({red,green,blue}){
     return `rgb(${red},${green},${blue})`
 
 }
 
+
+//hexa to rgb convertor
+/**
+ * 
+ * @param {string} hex 
+ */
+function hexaTOrgb(hex){
+    const red = parseInt(hex.substring(0,2),16);
+    const green=parseInt(hex.substring(2,4),16);
+    const blue =parseInt(hex.substring(4,6),16);
+    return `rgb (${red},${green},${blue})`
+}
+
+// tost message
 const gettoastmessege=(masg)=>{
     copyDive=document.createElement('div')
     copyDive.innerHTML=masg;
